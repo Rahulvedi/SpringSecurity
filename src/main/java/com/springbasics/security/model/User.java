@@ -34,6 +34,7 @@ public class User implements UserDetails {
     private boolean accountStatus;
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLE_MASTER",joinColumns = @JoinColumn(referencedColumnName = "ID"),inverseJoinColumns = @JoinColumn(referencedColumnName = "ROLE_ID"))
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Authority> authorities;
 
     @Override

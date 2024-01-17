@@ -3,6 +3,7 @@ package com.springbasics.security.service.AuthService;
 import com.springbasics.security.config.jwt.JWTHelper;
 import com.springbasics.security.exception.CustomExceptions.CustomException;
 import com.springbasics.security.exception.ErrorCode;
+import com.springbasics.security.model.Authority;
 import com.springbasics.security.model.OTP;
 import com.springbasics.security.model.RefreshToken;
 import com.springbasics.security.model.User;
@@ -24,7 +25,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -78,8 +78,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(userService.isUserEmailExist(signUpRequest.getEmailaddress())) throw new CustomException(ErrorCode.EMAIL_ALREADY_EXIST.getCodeValue(),ErrorCode.EMAIL_ALREADY_EXIST.getResponseMessage(),ErrorCode.EMAIL_ALREADY_EXIST.getStatus());
 
         //Creating new user with user role only
-        List authorityList=new ArrayList<>();
-
+        List<Authority> authorityList=new ArrayList<>();
         authorityList.add(authorityRepository.findByroleCode("USER"));
         User user=new User();
         user.setUserName(signUpRequest.getUsername());
